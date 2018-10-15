@@ -14,7 +14,8 @@ class Signup extends Component {
     this.state = {
       name: '',
       username: '',
-      password: ''
+      password: '',
+      checked: false
     }
   }
 
@@ -29,13 +30,21 @@ class Signup extends Component {
       case 'password':
         this.setState({ password: e.target.value })
       break
+      case 'checkbox':
+        this.setState({ checked: !this.state.checked })
+      break
       default:
         return type
     }
   }
 
+  _checkIfAllInputsAreFilled = () =>  {
+    const { username, password, name, checked } = this.state
+    return username && password && name && checked ? false : true
+  }
+
   render () {
-    const { name, username, password } = this.state
+    const { name, username, password, checked } = this.state
     return (
       <div>
         <Header title="ICA" subtitle="Implementación de comparendos ambientales"/>
@@ -63,12 +72,18 @@ class Signup extends Component {
               onChange={(e) => this._handleOnchangeInputValue(e, 'password')}
             />
             <div>
-              <input name="checkbox" type="checkbox" />
+              <input
+                name="checkbox"
+                type="checkbox"
+                checked={checked}
+                onChange={(e) => this._handleOnchangeInputValue(e, 'checkbox')}
+              />
               <span className="gray-color">Acepto los términos y condiciones</span>
             </div>
             <ActionButton
               text="Registrarse"
               actionToExecute={() => alert('ingresar')}
+              disabled={this._checkIfAllInputsAreFilled()}
             />
             <hr />
             <span className="gray-color">¿Ya tienes cuenta? <span onClick={() =>this.props.history.push('/signin')}>Inicia sesión</span></span>

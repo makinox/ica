@@ -22,15 +22,21 @@ class Home extends Component {
           >
             <ActionButton
               text="GRUPO ECOLOGICO"
-              actionToExecute={()=>this.props.history.push('/signin')} //this.props.history.push('/signin')
+              actionToExecute={()=>this.props.history.push({
+                pathname: '/signin',
+                search: '?type=eco_group'
+              })}
             />
             <ActionButton
               text="DIRECTIVOS"
-              actionToExecute={() => alert('DIRECTIVOS')}
+              actionToExecute={() => this.props.history.push({
+                pathname: '/signin',
+                search: '?type=directives'
+              })}
             />
             <ActionButton
               text="ESTUDIANTES"
-              actionToExecute={() => prompt('tu nombre')}
+              actionToExecute={() => this.props.history.push('/checkFine')}
             />
           </SectionCard>
         </section>

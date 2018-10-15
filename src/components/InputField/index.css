@@ -1,4 +1,4 @@
-#inputfield {
+.inputfield {
   width: 300px;
   height: 48px;
   background: rgba(255,255,255,.2);
@@ -9,6 +9,6 @@
   border: none;
   border-bottom: 2px solid rgba(25,53,71,.09);
 }
-#inputfield:focus {
+.inputfield:focus {
   border-bottom: 2px solid #1abc9c;
 }

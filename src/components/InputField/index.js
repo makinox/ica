@@ -3,7 +3,7 @@ import './index.css'
 
 function InputField ({ type, value, onChange, placeholder }) {
   return (
-    <input id="inputfield" type={type} value={value} onChange={onChange} placeholder={placeholder}/>
+    <input className="inputfield" type={type} value={value} onChange={onChange} placeholder={placeholder}/>
   )
 }
 

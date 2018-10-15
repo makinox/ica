@@ -13,7 +13,16 @@ class Signin extends Component {
     super(props)
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      type: ''
+    }
+  }
+
+  componentWillMount () {
+    const qs = decodeURIComponent(document.location.search)
+    if (qs) {
+      const type = qs.split('?type=')[1]
+      this.setState({ type })
     }
   }
 
@@ -30,8 +39,13 @@ class Signin extends Component {
     }
   }
 
-  render () {
+  _checkIfAllInputsAreFilled = () =>  {
     const { username, password } = this.state
+    return username && password ? false : true
+  }
+
+  render () {
+    const { username, password, type } = this.state
     return (
       <div>
         <Header title="ICA" subtitle="Implementación de comparendos ambientales"/>
@@ -53,11 +67,20 @@ class Signin extends Component {
               onChange={(e) => this._handleOnchangeInputValue(e, 'password')}
             />
             <ActionButton
+              disabled={this._checkIfAllInputsAreFilled()}
               text="INGRESAR"
               actionToExecute={() => alert('ingresar')}
             />
             <hr />
-            <span className="gray-color">¿No tienes cuenta? <span onClick={() =>this.props.history.push('/signup')}>Registrate</span></span>
+            <span className="gray-color">
+              ¿No tienes cuenta?
+              <span onClick={() =>this.props.history.push({
+                pathname: '/signup',
+                search: `?type=${type} `
+              })}>
+              Registrate
+            </span>
+            </span>
           </div>
           </SectionCard>
         </section>

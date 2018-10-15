@@ -1,41 +1,42 @@
 import React, { Component } from 'react'
 import './index.css'
 import ActionButton from '../../components/ActionButton'
+import Header from '../../components/Header'
+import { withRouter } from 'react-router-dom'
+import SectionCard from '../../components/SectionCard'
 
-export default class Home extends Component {
+
+class Home extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-
-    }
   }
 
   render () {
     return (
-      <div id="main-container">
-        <header>
-          <div className="text-container">
-            <div className="title-container">
-              <h1>ICA</h1>
-              <img id="logo" src="./images/logo.png"/>
-            </div>
-            <span id="subtitle">Implementación de comparendos ambientales</span>
-          </div>
-        </header>
+      <div>
+        <Header title="ICA" subtitle="Implementación de comparendos ambientales"/>
         <section>
-          <div id="buttons-view">
-            <div className="buttons-title-container">
-              <img id="buttons-view-logo" src="./images/touch.png"/>
-              <span id="buttons-view-title">Selecciona tu tipo de usuario</span>
-            </div>
-            <div className="buttons-view-container">
-            <ActionButton text="GRUPO ECOLOGICO"/>
-            <ActionButton text="DIRECTIVOS"/>
-            <ActionButton text="ESTUDIANTES"/>
-            </div>
-          </div>
+          <SectionCard
+            title="Selecciona tu tipo de usuario"
+            imageURL="./images/touch.png"
+          >
+            <ActionButton
+              text="GRUPO ECOLOGICO"
+              actionToExecute={()=>this.props.history.push('/signin')} //this.props.history.push('/signin')
+            />
+            <ActionButton
+              text="DIRECTIVOS"
+              actionToExecute={() => alert('DIRECTIVOS')}
+            />
+            <ActionButton
+              text="ESTUDIANTES"
+              actionToExecute={() => prompt('tu nombre')}
+            />
+          </SectionCard>
         </section>
       </div>
     )
   }
 }
+
+export default withRouter(Home)

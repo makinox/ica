@@ -1,9 +1,9 @@
 import React from 'react'
 import './index.css'
 
-function ActionButton ({ text }) {
+function ActionButton ({ text, actionToExecute }) {
   return (
-    <button>
+    <button onClick={actionToExecute}>
       {text}
     </button>
   )

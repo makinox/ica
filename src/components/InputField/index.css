@@ -1,0 +1,14 @@
+#inputfield {
+  width: 300px;
+  height: 48px;
+  background: rgba(255,255,255,.2);
+  box-shadow: 0 1px 0 rgba(255,255,255,.1);
+  font-size: 15px;
+  outline: 0;
+  padding-left: 10px;
+  border: none;
+  border-bottom: 2px solid rgba(25,53,71,.09);
+}
+#inputfield:focus {
+  border-bottom: 2px solid #1abc9c;
+}

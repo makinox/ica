@@ -1,0 +1,21 @@
+.inputs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gray-color {
+  color: #757575;
+}
+
+.gray-color span {
+  text-decoration: none;
+  color: #0084B5;
+  cursor: pointer;
+}
+
+hr {
+  width: 100%;
+  border: 1px solid #bdc3c7;
+}

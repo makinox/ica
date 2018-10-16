@@ -40,8 +40,8 @@ class CheckFine extends Component {
             title="Ver mi estado de multas"
           >
             <InputField
-              type="number"
-              placeholder="Identificación"
+              type="text"
+              placeholder="Nombre completo"
               value={id}
               onChange={(e) => this._handleOnchangeInputValue(e, 'id')}
             />

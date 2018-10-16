@@ -1,11 +1,13 @@
 import React from 'react'
 import './index.css'
+import { withRouter } from 'react-router-dom'
 
-function Header ({ title, subtitle }) {
+
+function Header ({ title, subtitle, history }) {
   return (
     <header>
       <div className="text-container">
-        <div className="title-container">
+        <div className="title-container" onClick={() => history.push('/')}>
           <h1>{title}</h1>
           <img id="logo" src="./images/logo.png" alt="main-logo"/>
         </div>
@@ -15,4 +17,4 @@ function Header ({ title, subtitle }) {
   )
 }
 
-export default Header
+export default withRouter(Header)

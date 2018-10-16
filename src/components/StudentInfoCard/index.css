@@ -1,0 +1,29 @@
+.student-ifo-card {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px;
+}
+
+.student-ifo-card span {
+  margin: 5px;
+}
+
+#user-avatar {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+#user-name {
+  font-size: 25px;
+}
+
+#user-id {
+  font-size: 18px;
+}
+
+#user-classRoom  {
+
+}

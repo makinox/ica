@@ -4,6 +4,7 @@ import Home from '../pages/Home'
 import Signin from '../pages/Signin'
 import Signup from '../pages/Signup'
 import CheckFine from '../pages/CheckFine'
+import Fines from '../pages/Fines'
 
 export default class App extends Component {
   render () {
@@ -14,6 +15,7 @@ export default class App extends Component {
           <Route path="/signin" component={()=><Signin />} />
           <Route path="/signup" component={()=><Signup />} />
           <Route exact path="/checkFine" component={()=><CheckFine />} />
+          <Route exact path="/fines" component={() => <Fines />}/>
           {/* <Route render={()=><NotFoundScreen />} /> */}
         </Switch>
     </Router>

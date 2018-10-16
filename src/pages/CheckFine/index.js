@@ -7,12 +7,12 @@ import { withRouter } from 'react-router-dom'
 import SectionCard from '../../components/SectionCard'
 import Preloader from '../../components/Preloader'
 
-export default class CheckFine extends Component {
+class CheckFine extends Component {
   constructor(props) {
     super(props)
     this.state = {
       id: '',
-      loading: false
+      loading: false,
     }
   }
 
@@ -20,7 +20,12 @@ export default class CheckFine extends Component {
 
   _handleStartSearching = () => {
     this.setState({ loading: true })
-    setTimeout(() => this.setState({loading: false}), 2000)
+    setTimeout(() => this._handleStopLoading(), 2000)
+  }
+
+  _handleStopLoading = () => {
+    this.setState({ loading: false})
+    this.props.history.push('/fines')
   }
 
   render () {
@@ -55,3 +60,5 @@ export default class CheckFine extends Component {
     )
   }
 }
+
+export default withRouter(CheckFine)

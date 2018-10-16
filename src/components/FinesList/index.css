@@ -1,0 +1,24 @@
+#fines-table-header {
+  background: #00b24d;
+  display: flex;
+  height: 50px;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.19);
+  overflow: hidden;
+}
+
+.table-header-item {
+  font-size: 18px;
+  color: white;
+  font-weight: 600;
+}
+
+.table-header-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}

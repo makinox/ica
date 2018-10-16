@@ -35,7 +35,10 @@ section {
 
 body {
   background: url('/images/background.jpg');
-  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position:center;
+  background-size:cover;
+
 }
 
 #logo {

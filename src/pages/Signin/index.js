@@ -6,7 +6,8 @@ import Header from '../../components/Header'
 import SectionCard from '../../components/SectionCard'
 import InputField from '../../components/InputField'
 import { withRouter } from 'react-router-dom'
-
+import { connect } from 'react-redux'
+import { setCurrentUserType } from '../../redux/actions'
 
 class Signin extends Component {
   constructor(props) {
@@ -44,6 +45,11 @@ class Signin extends Component {
     return username && password ? false : true
   }
 
+  _handleLoading = () => {
+    this.props.setCurrentUserType(this.state.type)
+    this.props.history.push('/checkFine')
+  }
+
   render () {
     const { username, password, type } = this.state
     return (
@@ -69,14 +75,14 @@ class Signin extends Component {
             <ActionButton
               disabled={this._checkIfAllInputsAreFilled()}
               text="INGRESAR"
-              actionToExecute={() => alert('ingresar')}
+              actionToExecute={this._handleLoading}
             />
             <hr />
             <span className="gray-color">
               ¿No tienes cuenta?
               <span onClick={() =>this.props.history.push({
                 pathname: '/signup',
-                search: `?type=${type} `
+                search: `?type=${type}`
               })}>
               Registrate
             </span>
@@ -89,4 +95,12 @@ class Signin extends Component {
   }
 }
 
-export default withRouter(Signin)
+const mapStateToProps = (state) => ({
+  state
+})
+
+const mapDispatchToProps = {
+  setCurrentUserType
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Signin))

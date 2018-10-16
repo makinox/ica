@@ -3,46 +3,16 @@ import Header from '../../components/Header'
 import SectionCard from '../../components/SectionCard'
 import StudentInfoCard from '../../components/StudentInfoCard'
 import FinesList from '../../components/FinesList'
+import { connect } from 'react-redux'
 import './index.css'
 
-export default class Fines extends Component {
+class Fines extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      user: {
-        data: {
-          id: '1234567890',
-          name: 'Camila Cuevas',
-          classRoom: '11B'
-        },
-        fines: [
-          {
-            type: 1,
-            date: new Date(),
-            description: 'HERE IS A DESCRIPTION'
-          },
-          {
-            type: 3,
-            date: new Date(),
-            description: 'HERE IS A DESCRIPTION'
-          },
-          {
-            type: 2,
-            date: new Date(),
-            description: 'HERE IS A DESCRIPTION'
-          },
-          {
-            type: 4,
-            date: new Date(),
-            description: 'HERE IS A DESCRIPTION'
-          }
-        ]
-      }
-    }
   }
 
   render () {
-    const { user } = this.state
+    const { fines, student, currentUserType } = this.props.state.ica
     return (
       <div>
         <Header
@@ -52,8 +22,8 @@ export default class Fines extends Component {
         <section>
           <SectionCard>
             <div className="fines-container">
-              <StudentInfoCard user={user.data} />
-              <FinesList data={user.fines}/>
+              <StudentInfoCard user={student} />
+              <FinesList data={fines} currentUserType={currentUserType}/>
             </div>
           </SectionCard>
         </section>
@@ -61,3 +31,11 @@ export default class Fines extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  state
+})
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Fines)

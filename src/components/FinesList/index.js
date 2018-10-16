@@ -16,7 +16,7 @@ function FinesList ({ data }) {
           <span className="table-header-item">DESCRIPCION</span>
         </div>
       </div>
-      {data.map(item => <FineItem item={item}/>)}
+      {data.map(item => <FineItem key={item.id} item={item}/>)}
     </div>
   )
 }

@@ -12,7 +12,7 @@ function SectionCard ({ children, title, imageURL }) {
           <span id="section-view-title">{title}</span>
         </div>
       }
-      <div className="section-view-children-container">
+      <div className=""> {/*fines-table-header*/}
         {children}
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.css'
 import { formatDate } from '../../../lib/formatDate'
-
+import IconButton from '../../IconButton'
 
 function getTypeColorItem (type) {
   switch (type) {
@@ -39,24 +39,42 @@ function getTypeColorItem (type) {
       break
     default:
       return type
-
   }
 }
 
-function FineItem ({ item: { type, date, description } }) {
+function handleRenderIcon (currentUserType) {
+  switch (currentUserType) {
+    case 'eco_group':
+      return null
+    case 'directives':
+      return (
+        <div className="mini-icons-view">
+          <IconButton icon="add" size="small" color="#00B25B"/>
+          <IconButton icon="delete" size="small" color="#00B25B"/>
+        </div>
+      )
+    default:
+      return currentUserType
+  }
+}
+
+function FineItem ({ currentUserType,  item: { type, date, description } }) {
   return (
-    <div className="fine-container">
-      <div className="fine-item">
-        <span>{getTypeColorItem(type)}</span>
-      </div>
-      <div className="fine-item">
-        <span>{formatDate(date)}</span>
-      </div>
-      <div className="">
-        <div className="tooltip">Ver descipción
-          <span className="tooltiptext">{description}</span>
+    <div id="fine">
+      <div className="fine-container">
+        <div className="fine-item">
+          <span>{getTypeColorItem(type)}</span>
+        </div>
+        <div className="fine-item">
+          <span>{formatDate(date)}</span>
+        </div>
+        <div>
+          <div className="tooltip">Ver descipción
+            <span className="tooltiptext">{description}</span>
+          </div>
         </div>
       </div>
+      {handleRenderIcon(currentUserType)}
     </div>
   )
 }

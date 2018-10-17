@@ -59,3 +59,13 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+#fine {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 40px;
+}
+
+.mini-icons-view {
+  display: grid;
+}

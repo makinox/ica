@@ -15,7 +15,16 @@ class Signup extends Component {
       name: '',
       username: '',
       password: '',
-      checked: false
+      checked: false,
+      type: ''
+    }
+  }
+
+  componentWillMount () {
+    const qs = decodeURIComponent(document.location.search)
+    if (qs) {
+      const type = qs.split('?type=')[1]
+      this.setState({ type })
     }
   }
 
@@ -44,7 +53,7 @@ class Signup extends Component {
   }
 
   render () {
-    const { name, username, password, checked } = this.state
+    const { name, username, password, checked, type } = this.state
     return (
       <div>
         <Header title="ICA" subtitle="Implementación de comparendos ambientales"/>
@@ -86,7 +95,10 @@ class Signup extends Component {
               disabled={this._checkIfAllInputsAreFilled()}
             />
             <hr />
-            <span className="gray-color">¿Ya tienes cuenta? <span onClick={() =>this.props.history.push('/signin')}>Inicia sesión</span></span>
+            <span className="gray-color">¿Ya tienes cuenta? <span onClick={() =>this.props.history.push({
+              pathname: '/signin',
+              search: `?type=${type}`
+            })}>Inicia sesión</span></span>
           </div>
           </SectionCard>
         </section>

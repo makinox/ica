@@ -6,6 +6,11 @@ import InputField from '../../components/InputField'
 import { withRouter } from 'react-router-dom'
 import SectionCard from '../../components/SectionCard'
 import Preloader from '../../components/Preloader'
+import { connect } from 'react-redux'
+import {
+  saveStudentData,
+  saveStudentFinesInStore
+} from '../../redux/actions'
 
 class CheckFine extends Component {
   constructor(props) {
@@ -13,6 +18,39 @@ class CheckFine extends Component {
     this.state = {
       id: '',
       loading: false,
+      user: {
+        data: {
+          id: '1234567890',
+          name: 'Camila Cuevas',
+          classRoom: '11B'
+        },
+        fines: [
+          {
+            id: 1,
+            type: 1,
+            date: new Date(),
+            description: 'HERE IS A DESCRIPTION'
+          },
+          {
+            id: 2,
+            type: 3,
+            date: new Date(),
+            description: 'HERE IS A DESCRIPTION'
+          },
+          {
+            id: 3,
+            type: 2,
+            date: new Date(),
+            description: 'HERE IS A DESCRIPTION'
+          },
+          {
+            id: 4,
+            type: 4,
+            date: new Date(),
+            description: 'HERE IS A DESCRIPTION'
+          }
+        ]
+      }
     }
   }
 
@@ -24,6 +62,8 @@ class CheckFine extends Component {
   }
 
   _handleStopLoading = () => {
+    this.props.saveStudentData(this.state.user.data)
+    this.props.saveStudentFinesInStore(this.state.user.fines)
     this.setState({ loading: false})
     this.props.history.push('/fines')
   }
@@ -37,11 +77,11 @@ class CheckFine extends Component {
         />
         <section>
           <SectionCard
-            title="Ver mi estado de multas"
+            title="Ver estado de multas"
           >
             <InputField
               type="text"
-              placeholder="Nombre completo"
+              placeholder="Nombre completo del estudiante"
               value={id}
               onChange={(e) => this._handleOnchangeInputValue(e, 'id')}
             />
@@ -61,4 +101,13 @@ class CheckFine extends Component {
   }
 }
 
-export default withRouter(CheckFine)
+const mapStateToProps = (state) => ({
+  state
+})
+
+const mapDispatchToProps = {
+  saveStudentData,
+  saveStudentFinesInStore
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CheckFine))

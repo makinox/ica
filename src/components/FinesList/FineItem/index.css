@@ -61,10 +61,7 @@
 }
 
 #fine {
+  border: 1px red solid;
   display: grid;
-  align-items: center;
-}
-
-.mini-icons-view {
-  display: grid;
+  grid-template-columns: 500px auto;
 }

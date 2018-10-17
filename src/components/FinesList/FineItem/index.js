@@ -48,7 +48,7 @@ function handleRenderIcon (currentUserType) {
       return null
     case 'directives':
       return (
-        <div className="mini-icons-view">
+        <div id="mini-icons-view">
           <IconButton icon="add" size="small" color="#00B25B"/>
           <IconButton icon="delete" size="small" color="#00B25B"/>
         </div>

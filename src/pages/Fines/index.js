@@ -7,10 +7,7 @@ import IconButton from '../../components/IconButton'
 import { connect } from 'react-redux'
 import './index.css'
 
-class Fines extends Component {
-  constructor(props){
-    super(props)
-  }
+class Fines extends Component  {
 
   _renderAddButton = (currentUserType) => {
     switch (currentUserType) {

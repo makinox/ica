@@ -33,14 +33,6 @@ section {
   text-align: center;
 }
 
-body {
-  background: url('/images/background.jpg');
-  background-repeat: no-repeat;
-  background-position:center;
-  background-size:cover;
-
-}
-
 #logo {
   height: 50px;
   width: 50px;

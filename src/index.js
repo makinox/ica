@@ -5,8 +5,7 @@ import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
 import { initializeStore } from './redux/store'
 import { saveState } from './redux/localStorage'
-
-
+import './index.css'
 
 const store = initializeStore()
 

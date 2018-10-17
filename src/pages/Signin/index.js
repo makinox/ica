@@ -7,7 +7,7 @@ import SectionCard from '../../components/SectionCard'
 import InputField from '../../components/InputField'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { setCurrentUserType } from '../../redux/actions'
+import { setCurrentUserData } from '../../redux/actions'
 
 class Signin extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class Signin extends Component {
   }
 
   _handleLoading = () => {
-    this.props.setCurrentUserType(this.state.type)
+    this.props.setCurrentUserData(this.state)
     this.props.history.push('/checkFine')
   }
 
@@ -100,7 +100,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  setCurrentUserType
+  setCurrentUserData
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Signin))

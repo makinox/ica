@@ -3,7 +3,7 @@ import './index.css'
 import { withRouter } from 'react-router-dom'
 
 
-function Header ({ title, subtitle, history }) {
+function Header ({ title, subtitle, history, currentUserData }) {
   return (
     <header>
       <div className="text-container">

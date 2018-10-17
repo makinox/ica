@@ -1,11 +1,11 @@
 import React from 'react'
 import './index.css'
 
-function IconButton ({ icon, size, color }) {
+function IconButton ({ icon, size, color, actionToExecute }) {
   return (
-    <div style={{ backgroundColor: color }} className={`add-button ${size === 'big' ? size : size} `}>
+    <button onClick={actionToExecute} style={{ backgroundColor: color }} className={`add-button ${size === 'big' ? size : size} `}>
       <i class="material-icons">{icon}</i>
-    </div>
+    </button>
   )
 }
 

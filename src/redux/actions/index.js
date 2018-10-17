@@ -8,7 +8,12 @@ export const saveStudentData = (student) => ({
   student
 })
 
-export const setCurrentUserType = (currentUserType) => ({
-  type: 'SET_CURRENT_USER_TYPE',
-  currentUserType
+export const setCurrentUserData = (currentUserData) => ({
+  type: 'SET_CURRENT_USER_DATA',
+  currentUserData
+})
+
+export const changeShowForm = (show) => ({
+  type: 'CHANGE_SHOW_FORM',
+  show
 })

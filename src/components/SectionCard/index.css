@@ -13,6 +13,18 @@
   justify-content: center;
 }
 
+.section-title-span {
+  font-size: 30px;
+  background-color: #00B338;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  padding: 0px 10px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .3);
+}
+
 #section-view {
   background: rgba(255, 255, 255, 0.75);
   padding: 15px;

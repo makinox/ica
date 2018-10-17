@@ -7,10 +7,6 @@ import SectionCard from '../../components/SectionCard'
 
 
 class Home extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render () {
     return (
       <div>

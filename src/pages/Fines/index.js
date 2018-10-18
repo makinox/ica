@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Header from '../../components/Header'
 import SectionCard from '../../components/SectionCard'
 import StudentInfoCard from '../../components/StudentInfoCard'
-import FinesList from '../../components/FinesList'
+import FinesList from '../../containers/FinesList'
 import IconButton from '../../components/IconButton'
 import AddFineForm from '../../containers/AddFineForm'
 import { graphql, compose } from 'react-apollo'
@@ -96,6 +96,7 @@ class Fines extends Component {
                           data={fines}
                           currentUserType={role}
                           deleteFineMutation={(_id) => this._handleDeleteFine(_id)}
+                          onAddPayWay={this._handleOnFinishAddFine}
                         />
                       : <AddFineForm
                           onAddFine={this._handleOnFinishAddFine}
@@ -118,6 +119,7 @@ const checkFines = gql`
      studentId
      date
      _id
+     payWay
    }
   }
 `

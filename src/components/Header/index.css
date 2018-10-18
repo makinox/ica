@@ -2,6 +2,14 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
+
+.inner-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 header h1 {
@@ -10,5 +18,30 @@ header h1 {
 }
 
 .title-container {
+  display: flex;
+  width: 100%;
+}
+
+.user-info {
+  position: absolute;
+  right: 0;
+  top: 0;
+  align-items: center;
+  display: flex;
+}
+
+.user-info span {
+  margin: 20px;
+  color: #06292F;
+}
+
+.user-info a {
+  margin: 20px;
+  color: #06292F;
+}
+
+#logout {
+  border-bottom: 2px solid #06292F;
+  color: #06292F;
   cursor: pointer;
 }

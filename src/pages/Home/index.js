@@ -9,13 +9,6 @@ import { connect } from 'react-redux'
 
 class Home extends Component {
 
-    componentWillMount () {
-      const currentUser = this.props.state.ica.currentUserData
-      if (currentUser) {
-        this.props.history.push('/checkFine')
-      }
-    }
-
   render () {
     return (
       <div>

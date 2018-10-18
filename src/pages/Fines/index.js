@@ -6,23 +6,19 @@ import FinesList from '../../components/FinesList'
 import IconButton from '../../components/IconButton'
 import AddFineForm from '../../containers/AddFineForm'
 import { graphql, compose } from 'react-apollo'
+import { withRouter } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { connect } from 'react-redux'
 import './index.css'
 import {
   saveStudentFinesInStore,
+  setCurrentUserData,
   changeShowForm
 } from '../../redux/actions'
 
 class Fines extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
 
-    }
-  }
-
-  componentWillMount () {
+componentWillMount () {
     this._getFinesList()
   }
 
@@ -58,11 +54,18 @@ class Fines extends Component {
     this._getFinesList()
   }
 
+  _logout = () => {
+    this.props.setCurrentUserData({})
+    this.props.history.push('/')
+  }
+
   render () {
     const { fines, student, show,  currentUserData: { role } } = this.props.state.ica
     return (
       <div>
         <Header
+          currentUserData={this.props.state.ica.currentUserData}
+          logout={this._logout}
           title="Multas"
           subtitle="Aqui podrás ver tu historial de multas"
         />
@@ -103,11 +106,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   saveStudentFinesInStore,
+  setCurrentUserData,
   changeShowForm
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   compose(
     graphql(checkFines, { name: 'checkFinesMutation' })
-  )(Fines)
+  )(withRouter(Fines))
 )

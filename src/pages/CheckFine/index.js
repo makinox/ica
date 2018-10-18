@@ -12,6 +12,7 @@ import swal from 'sweetalert'
 import { graphql } from 'react-apollo'
 import {
   saveStudentData,
+  setCurrentUserData,
   saveStudentFinesInStore
 } from '../../redux/actions'
 
@@ -35,14 +36,20 @@ class CheckFine extends Component {
     this.setState({ loading: true })
     this.props.mutate({ variables: { name: fullName } })
     .then(async ({ data }) => {
-      this._handleStopLoading(data.getStudentByFullName)
+      if (data.getStudentByFullName) {
+        this._handleStopLoading(data.getStudentByFullName)
+      } else {
+        swal('El estudiante no está registrado')
+        this.props.history.push({
+          pathname: '/signup',
+          search: 'type=student'
+        })
+        this.setState({ loading: false })
+      }
     })
     .catch(err => {
-      swal('El estudiante no está registrado')
-      this.props.history.push({
-        pathname: '/signup',
-        search: 'type=student'
-      })
+      console.log(err)
+      swal('Intenta de nuevo')
       this.setState({ loading: false })
     })
   }
@@ -54,12 +61,19 @@ class CheckFine extends Component {
     this.props.history.push('/fines')
   }
 
+  _logout = () => {
+    this.props.setCurrentUserData({})
+    this.props.history.push('/')
+  }
+
   render () {
     const { fullName, loading } = this.state
     return (
       <div>
         <Header
           title="Bienvenido"
+          currentUserData={this.props.state.ica.currentUserData}
+          logout={this._logout}
         />
         <section>
           <SectionCard
@@ -105,6 +119,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   saveStudentData,
+  setCurrentUserData,
   saveStudentFinesInStore
 }
 

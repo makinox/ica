@@ -97,6 +97,20 @@ class Signup extends Component {
     })
   }
 
+  _handleCreateStudent = () => {
+    const { name, course, id } = this.state
+    this.props.createStudentMutation({ variables: { id, course, name } })
+    .then(async ({ data }) => {
+      this.props.saveStudentData(data.createStudent)
+      this.setState({ loading: false })
+      this.props.history.push('/fines')
+    })
+    .catch(err => {
+      console.log(err)
+      this.setState({ loading: false })
+    })
+  }
+
 
 
 

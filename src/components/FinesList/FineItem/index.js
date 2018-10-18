@@ -5,7 +5,7 @@ import IconButton from '../../IconButton'
 
 function getTypeColorItem (type) {
   switch (type) {
-    case 1:
+    case '1':
       return (
         <div className="type-item">
           <span>1</span>
@@ -13,7 +13,7 @@ function getTypeColorItem (type) {
         </div>
       )
       break
-    case 2:
+    case '2':
       return (
         <div className="type-item">
           <span>2</span>
@@ -21,7 +21,7 @@ function getTypeColorItem (type) {
         </div>
       )
       break
-    case 3:
+    case '3':
       return (
         <div className="type-item">
           <span>3</span>
@@ -29,7 +29,7 @@ function getTypeColorItem (type) {
         </div>
       )
       break
-    case 4:
+    case '4':
       return (
         <div className="type-item">
           <span>4</span>
@@ -66,7 +66,7 @@ function FineItem ({ currentUserType,  item: { type, date, description } }) {
           <span>{getTypeColorItem(type)}</span>
         </div>
         <div className="fine-item">
-          <span>{formatDate(date)}</span>
+          <span>{date}</span>
         </div>
         <div>
           <div className="tooltip">Ver descipción

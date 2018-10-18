@@ -1,7 +1,8 @@
 const ica = (state = {
   fines: [],
-  currentUserType: '',
-  student: {}
+  currentUserData: {},
+  student: {},
+  show: false
 }, action) => {
   switch (action.type) {
     case 'SAVE_STUDENT_FINES_IN_STORE':
@@ -14,10 +15,15 @@ const ica = (state = {
         ...state,
         student: action.student
       }
-    case 'SET_CURRENT_USER_TYPE':
+    case 'SET_CURRENT_USER_DATA':
       return {
         ...state,
-        currentUserType: action.currentUserType
+        currentUserData: action.currentUserData
+      }
+    case 'CHANGE_SHOW_FORM':
+      return {
+        ...state,
+        show: action.show
       }
     default:
       return state

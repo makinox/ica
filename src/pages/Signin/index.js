@@ -7,7 +7,11 @@ import SectionCard from '../../components/SectionCard'
 import InputField from '../../components/InputField'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { setCurrentUserType } from '../../redux/actions'
+import { setCurrentUserData } from '../../redux/actions'
+import gql from 'graphql-tag'
+import { graphql, compose } from 'react-apollo'
+import swal from 'sweetalert'
+import Preloader from '../../components/Preloader'
 
 class Signin extends Component {
   constructor(props) {
@@ -15,7 +19,8 @@ class Signin extends Component {
     this.state = {
       username: '',
       password: '',
-      type: ''
+      type: '',
+      loading: false
     }
   }
 
@@ -45,13 +50,23 @@ class Signin extends Component {
     return username && password ? false : true
   }
 
-  _handleLoading = () => {
-    this.props.setCurrentUserType(this.state.type)
-    this.props.history.push('/checkFine')
+  _login = () => {
+    this.setState({ loading: true })
+    const { username, password } = this.state
+    this.props.mutate({ variables: { username, password } })
+    .then( async ({ data }) => {
+      this.props.setCurrentUserData(data.login)
+      this.props.history.push('/checkFine')
+    })
+    .catch(err => {
+      this.setState({ loading: false })
+      swal('Itenta de nuevo :(')
+      console.log(err)
+    })
   }
 
   render () {
-    const { username, password, type } = this.state
+    const { username, password, type, loading } = this.state
     return (
       <div>
         <Header title="ICA" subtitle="Implementación de comparendos ambientales"/>
@@ -72,11 +87,14 @@ class Signin extends Component {
               value={password}
               onChange={(e) => this._handleOnchangeInputValue(e, 'password')}
             />
-            <ActionButton
-              disabled={this._checkIfAllInputsAreFilled()}
-              text="INGRESAR"
-              actionToExecute={this._handleLoading}
-            />
+            {
+              loading ? <Preloader size="small"/>
+              : <ActionButton
+                  disabled={this._checkIfAllInputsAreFilled()}
+                  text="INGRESAR"
+                  actionToExecute={this._login}
+                />
+            }
             <hr />
             <span className="gray-color">
               ¿No tienes cuenta?
@@ -95,12 +113,26 @@ class Signin extends Component {
   }
 }
 
+const login = gql`
+  mutation login ($username: String!, $password: String!) {
+    login(username: $username, password: $password){
+      _id
+      username
+      name
+      role
+      jwt
+    }
+  }
+`
+
 const mapStateToProps = (state) => ({
   state
 })
 
 const mapDispatchToProps = {
-  setCurrentUserType
+  setCurrentUserData
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Signin))
+export default connect(mapStateToProps, mapDispatchToProps)(
+  graphql(login)(withRouter(Signin))
+)

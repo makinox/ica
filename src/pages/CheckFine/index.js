@@ -7,8 +7,12 @@ import { withRouter } from 'react-router-dom'
 import SectionCard from '../../components/SectionCard'
 import Preloader from '../../components/Preloader'
 import { connect } from 'react-redux'
+import gql from 'graphql-tag'
+import swal from 'sweetalert'
+import { graphql } from 'react-apollo'
 import {
   saveStudentData,
+  setCurrentUserData,
   saveStudentFinesInStore
 } from '../../redux/actions'
 
@@ -16,64 +20,73 @@ class CheckFine extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: '',
+      fullName: '',
       loading: false,
-      user: {
-        data: {
-          id: '1234567890',
-          name: 'Camila Cuevas',
-          classRoom: '11B'
-        },
-        fines: [
-          {
-            id: 1,
-            type: 1,
-            date: new Date(),
-            description: 'HERE IS A DESCRIPTION'
-          },
-          {
-            id: 2,
-            type: 3,
-            date: new Date(),
-            description: 'HERE IS A DESCRIPTION'
-          },
-          {
-            id: 3,
-            type: 2,
-            date: new Date(),
-            description: 'HERE IS A DESCRIPTION'
-          },
-          {
-            id: 4,
-            type: 4,
-            date: new Date(),
-            description: 'HERE IS A DESCRIPTION'
-          }
-        ]
-      }
+      type: '',
+      isStudent: false
     }
   }
 
-  _handleOnchangeInputValue = (e, type) => this.setState({ id: e.target.value })
-
-  _handleStartSearching = () => {
-    this.setState({ loading: true })
-    setTimeout(() => this._handleStopLoading(), 2000)
+  componentWillMount () {
+    const qs = decodeURIComponent(document.location.search)
+    if (qs) {
+      const type = qs.split('?type=')[1]
+      this.setState({ type, isStudent: type === 'student' })
+    }
   }
 
-  _handleStopLoading = () => {
-    this.props.saveStudentData(this.state.user.data)
-    this.props.saveStudentFinesInStore(this.state.user.fines)
+  _handleOnchangeInputValue = (e, type) => this.setState({ fullName: e.target.value })
+
+  _checkIfAllInputsAreFilled = () => {
+    return this.state.fullName ? false : true
+  }
+
+  _handleStartSearching = () => {
+    const { fullName, isStudent } = this.state
+    this.setState({ loading: true })
+    this.props.mutate({ variables: { name: fullName } })
+    .then(async ({ data }) => {
+      if (data.getStudentByFullName) {
+        this._handleStopLoading(data.getStudentByFullName)
+      } else {
+        swal('El estudiante no está registrado')
+        if (!isStudent) {
+          this.props.history.push({
+            pathname: '/signup',
+            search: 'type=student'
+          })
+        }
+        this.setState({ loading: false })
+      }
+
+    })
+    .catch(err => {
+      console.log(err)
+      swal('Intenta de nuevo')
+      this.setState({ loading: false })
+    })
+  }
+
+
+  _handleStopLoading = (data) => {
+    this.props.saveStudentData(data)
     this.setState({ loading: false})
     this.props.history.push('/fines')
   }
 
+  _logout = () => {
+    this.props.setCurrentUserData({})
+    this.props.history.push('/')
+  }
+
   render () {
-    const { id, loading } = this.state
+    const { fullName, loading } = this.state
     return (
       <div>
         <Header
           title="Bienvenido"
+          currentUserData={this.props.state.ica.currentUserData}
+          logout={this._logout}
         />
         <section>
           <SectionCard
@@ -82,8 +95,8 @@ class CheckFine extends Component {
             <InputField
               type="text"
               placeholder="Nombre completo del estudiante"
-              value={id}
-              onChange={(e) => this._handleOnchangeInputValue(e, 'id')}
+              value={fullName}
+              onChange={(e) => this._handleOnchangeInputValue(e, 'fullName')}
             />
             {
               loading
@@ -91,6 +104,7 @@ class CheckFine extends Component {
               : <ActionButton
                 text="CONSULTAR"
                 actionToExecute={this._handleStartSearching}
+                disabled={this._checkIfAllInputsAreFilled()}
               />
             }
 
@@ -101,13 +115,25 @@ class CheckFine extends Component {
   }
 }
 
+
+const getStudent = gql`
+  mutation getStudent ($name: String!) {
+    getStudentByFullName(name: $name){
+      name
+      course
+      id
+    }
+  }
+`
+
 const mapStateToProps = (state) => ({
   state
 })
 
 const mapDispatchToProps = {
   saveStudentData,
+  setCurrentUserData,
   saveStudentFinesInStore
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CheckFine))
+export default connect(mapStateToProps, mapDispatchToProps)(graphql(getStudent)(withRouter(CheckFine)))

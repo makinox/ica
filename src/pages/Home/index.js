@@ -4,12 +4,10 @@ import ActionButton from '../../components/ActionButton'
 import Header from '../../components/Header'
 import { withRouter } from 'react-router-dom'
 import SectionCard from '../../components/SectionCard'
+import { connect } from 'react-redux'
 
 
 class Home extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   render () {
     return (
@@ -36,7 +34,10 @@ class Home extends Component {
             />
             <ActionButton
               text="ESTUDIANTES"
-              actionToExecute={() => this.props.history.push('/checkFine')}
+              actionToExecute={() => this.props.history.push({
+                pathname: '/checkFine',
+                search: '?type=student'
+              })}
             />
           </SectionCard>
         </section>
@@ -45,4 +46,10 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home)
+const mapStateToProps = (state) => ({
+  state
+})
+
+const mapDispatchToProps = { }
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home))

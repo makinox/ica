@@ -8,6 +8,12 @@
   overflow: hidden;
 }
 
+#list-container {
+  overflow: auto;
+  height: 300px;
+}
+
+
 .table-header-item {
   font-size: 18px;
   color: white;

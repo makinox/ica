@@ -16,7 +16,9 @@ function FinesList ({ data, currentUserType }) {
             <span className="table-header-item">DESCRIPCION</span>
           </div>
         </div>
-      {data.map(item => <FineItem currentUserType={currentUserType} key={item.id} item={item}/>)}
+      <div id="list-container">
+        {data.reverse().map(item => <FineItem currentUserType={currentUserType} key={item.id} item={item}/>)}
+      </div>
     </div>
   )
 }

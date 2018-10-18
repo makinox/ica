@@ -13,12 +13,13 @@ import './index.css'
 import {
   saveStudentFinesInStore,
   setCurrentUserData,
-  changeShowForm
+  changeShowForm,
+  filterItemFromFineListById
 } from '../../redux/actions'
 
 class Fines extends Component {
 
-componentWillMount () {
+  componentWillMount () {
     this._getFinesList()
   }
 
@@ -59,8 +60,24 @@ componentWillMount () {
     this.props.history.push('/')
   }
 
+  _removeFineFromView = (_id) => {
+    this.props.filterItemFromFineListById(_id)
+  }
+
+  _handleDeleteFine = (_id) => {
+    this.props.deleteFineMutation({ variables: { fineId: _id } })
+    .then(async ({ data }) => {
+      this._removeFineFromView(data.deleteFine._id)
+    })
+    .then(err => {
+      console.log(err)
+    })
+
+  }
+
   render () {
     const { fines, student, show,  currentUserData: { role } } = this.props.state.ica
+    const { deleteFineMutation } = this.props
     return (
       <div>
         <Header
@@ -75,7 +92,11 @@ componentWillMount () {
                 <StudentInfoCard user={student} />
                   {
                     !show
-                      ? <FinesList data={fines} currentUserType={role}/>
+                      ? <FinesList
+                          data={fines}
+                          currentUserType={role}
+                          deleteFineMutation={(_id) => this._handleDeleteFine(_id)}
+                        />
                       : <AddFineForm
                           onAddFine={this._handleOnFinishAddFine}
                         />
@@ -96,7 +117,16 @@ const checkFines = gql`
      description
      studentId
      date
+     _id
    }
+  }
+`
+
+const deleteFine = gql`
+  mutation deleteFine ($fineId: String!) {
+    deleteFine(fineId: $fineId) {
+    	_id
+    }
   }
 `
 
@@ -107,11 +137,13 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   saveStudentFinesInStore,
   setCurrentUserData,
-  changeShowForm
+  changeShowForm,
+  filterItemFromFineListById
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   compose(
-    graphql(checkFines, { name: 'checkFinesMutation' })
+    graphql(checkFines, { name: 'checkFinesMutation' }),
+    graphql(deleteFine, { name: 'deleteFineMutation' })
   )(withRouter(Fines))
 )

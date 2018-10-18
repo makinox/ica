@@ -17,3 +17,8 @@ export const changeShowForm = (show) => ({
   type: 'CHANGE_SHOW_FORM',
   show
 })
+
+export const filterItemFromFineListById = (_id) => ({
+  type: 'FILTER_ITEM_FROM_FINE_LIST',
+  _id
+})

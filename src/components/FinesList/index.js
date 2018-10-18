@@ -2,7 +2,7 @@ import React from 'react'
 import './index.css'
 import FineItem from './FineItem'
 
-function FinesList ({ data, currentUserType }) {
+function FinesList ({ data, currentUserType, deleteFineMutation }) {
   return (
     <div>
         <div id="fines-table-header">
@@ -20,7 +20,13 @@ function FinesList ({ data, currentUserType }) {
           </div>
         </div>
       <div id="list-container">
-        {data.reverse().map(item => <FineItem currentUserType={currentUserType} key={item.id} item={item}/>)}
+        {data.reverse().map(item => <FineItem
+            currentUserType={currentUserType}
+            key={item.id}
+            item={item}
+            deleteFineMutation={(_id) => deleteFineMutation(_id)}
+          />
+        )}
       </div>
     </div>
   )

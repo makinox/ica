@@ -9,8 +9,9 @@ import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
 import { ApolloProvider } from 'react-apollo'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+const API_URL = process.env.API_URL
 
-const httpLink = createHttpLink({ uri: 'http://localhost:5000/graphql' })
+const httpLink = createHttpLink({ uri: 'https://ica-api-zxtagzmnej.now.sh/graphql' })
 
 const client = new ApolloClient({
   link: httpLink,

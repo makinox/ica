@@ -7,7 +7,7 @@ export default class FinesList extends Component {
     const { data, currentUserType, deleteFineMutation, onAddPayWay } = this.props
     return (
       <div>
-          <div id="fines-table-header">
+          <div className={(currentUserType === "directives") ? "fines-table-header s-fine-list-b" : "fines-table-header s-fine-list-a"}>
             <div className="table-header-view">
               <span className="table-header-item">TIPO</span>
             </div>

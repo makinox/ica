@@ -1,11 +1,19 @@
-#fines-table-header {
+.fines-table-header {
   background: #00b24d;
-  display: flex;
-  height: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
   align-items: center;
   border-radius: 10px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.19);
-  overflow: hidden;
+  justify-content: center;
+}
+
+.s-fine-list-a {
+  grid-template-columns: repeat(4, auto);
+}
+
+.s-fine-list-b {
+  grid-template-columns: repeat(4, auto) 90px;
 }
 
 #list-container {
@@ -21,10 +29,8 @@
 }
 
 .table-header-view {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 20px 40px;
 }

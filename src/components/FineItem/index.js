@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './index.css'
-import { formatDate } from '../../lib/formatDate'
+// import { formatDate } from '../../lib/formatDate'
 import IconButton from '../IconButton'
 import AddPayWayToFine from '../../containers/AddPayWayToFine'
 
@@ -19,7 +19,6 @@ export default class FineItem extends Component {
             <div className="circle" style={{background: 'green'}}></div>
           </div>
         )
-        break
       case '2':
         return (
           <div className="type-item">
@@ -27,7 +26,6 @@ export default class FineItem extends Component {
             <div className="circle" style={{background: 'yellow'}}></div>
           </div>
         )
-        break
       case '3':
         return (
           <div className="type-item">
@@ -35,7 +33,6 @@ export default class FineItem extends Component {
             <div className="circle" style={{background: 'orange'}}></div>
           </div>
         )
-        break
       case '4':
         return (
           <div className="type-item">
@@ -43,7 +40,6 @@ export default class FineItem extends Component {
             <div className="circle" style={{background: 'red'}}></div>
           </div>
         )
-        break
       default:
         return type
     }
@@ -82,15 +78,15 @@ export default class FineItem extends Component {
                     <span className="tooltiptext">{payWay}</span>
                   </div>
                 </div>
-              </div>
                 {
                   currentUserType === 'directives' ?
-                  <div id="mini-icons-view">
+                  <div className="mini-icons-view">
                     <IconButton actionToExecute={this._changeShowPayWayForm} icon="add" size="small" color="#00B25B"/>
                     <IconButton actionToExecute={() => deleteFineMutation(_id)} icon="delete" size="small" color="#00B25B"/>
                   </div>
                 : null
                 }
+              </div>
             </div>
         }
       </div>

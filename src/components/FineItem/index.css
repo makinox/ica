@@ -60,6 +60,7 @@
   visibility: visible;
 }
 
-#fine {
-
+.mini-icons-view {
+  display: grid;
+  grid-template-columns: repeat(2, 50px);
 }

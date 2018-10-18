@@ -21,7 +21,17 @@ class CheckFine extends Component {
     super(props)
     this.state = {
       fullName: '',
-      loading: false
+      loading: false,
+      type: '',
+      isStudent: false
+    }
+  }
+
+  componentWillMount () {
+    const qs = decodeURIComponent(document.location.search)
+    if (qs) {
+      const type = qs.split('?type=')[1]
+      this.setState({ type, isStudent: type === 'student' })
     }
   }
 
@@ -32,7 +42,7 @@ class CheckFine extends Component {
   }
 
   _handleStartSearching = () => {
-    const { fullName } = this.state
+    const { fullName, isStudent } = this.state
     this.setState({ loading: true })
     this.props.mutate({ variables: { name: fullName } })
     .then(async ({ data }) => {
@@ -40,12 +50,15 @@ class CheckFine extends Component {
         this._handleStopLoading(data.getStudentByFullName)
       } else {
         swal('El estudiante no está registrado')
-        this.props.history.push({
-          pathname: '/signup',
-          search: 'type=student'
-        })
+        if (!isStudent) {
+          this.props.history.push({
+            pathname: '/signup',
+            search: 'type=student'
+          })
+        }
         this.setState({ loading: false })
       }
+
     })
     .catch(err => {
       console.log(err)

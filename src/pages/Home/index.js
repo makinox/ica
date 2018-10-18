@@ -34,7 +34,10 @@ class Home extends Component {
             />
             <ActionButton
               text="ESTUDIANTES"
-              actionToExecute={() => this.props.history.push('/checkFine')}
+              actionToExecute={() => this.props.history.push({
+                pathname: '/checkFine',
+                search: '?type=student'
+              })}
             />
           </SectionCard>
         </section>

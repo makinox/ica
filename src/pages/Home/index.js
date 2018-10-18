@@ -4,12 +4,17 @@ import ActionButton from '../../components/ActionButton'
 import Header from '../../components/Header'
 import { withRouter } from 'react-router-dom'
 import SectionCard from '../../components/SectionCard'
+import { connect } from 'react-redux'
 
 
 class Home extends Component {
-  constructor(props) {
-    super(props)
-  }
+
+    componentWillMount () {
+      const currentUser = this.props.state.ica.currentUserData
+      if (currentUser) {
+        this.props.history.push('/checkFine')
+      }
+    }
 
   render () {
     return (
@@ -45,4 +50,10 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home)
+const mapStateToProps = (state) => ({
+  state
+})
+
+const mapDispatchToProps = { }
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home))

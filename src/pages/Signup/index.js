@@ -86,7 +86,6 @@ class Signup extends Component {
     const { name, username, password, checked, type } = this.state
     this.props.signupUserMutation({variables: { name, username, role: type, password }})
     .then(async ({ data })=> {
-      console.log(data)
       this.setState({loading: false})
       this.props.setCurrentUserData(data.signup)
       this.props.history.push('/checkFine')

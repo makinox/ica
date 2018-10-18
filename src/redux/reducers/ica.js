@@ -25,6 +25,11 @@ const ica = (state = {
         ...state,
         show: action.show
       }
+    case 'FILTER_ITEM_FROM_FINE_LIST':
+      return {
+        ...state,
+        fines: state.fines.filter(fine => fine._id !== action._id)
+      }
     default:
       return state
   }
